@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="riakadmin">
+<head>
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script src="ngriakadmin.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" ng-href="/">ngRiakAdmin</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a ng-href="/buckets">Buckets</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-view></div>
+</body>
+</html>
