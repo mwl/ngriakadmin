@@ -11,14 +11,14 @@ function RiakCtrl($scope) {
 }
 
 function BucketsCtrl($scope, $http) {
-    $http({method: 'GET', url:'/riak?buckets=true'}).
+    $http({method: 'GET', url:'/buckets?buckets=true'}).
         success(function(data, status, headers, config) {
             $scope.buckets = data.buckets;
         });
 }
 
 function BucketCtrl($scope, $routeParams, $http) {
-    $http({method: 'GET', url:'/riak/' + $routeParams.bucket + '?keys=true'}).
+    $http({method: 'GET', url:'/buckets/' + $routeParams.bucket + '/keys?keys=true'}).
         success(function(data, status, headers, config) {
             $scope.props = data.props;
             $scope.keys = data.keys;
