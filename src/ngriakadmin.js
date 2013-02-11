@@ -34,6 +34,7 @@ function BucketsCtrl($scope, $http) {
 }
 
 function BucketCtrl($scope, $routeParams, $http) {
+    $scope.bucketName = $routeParams.bucket
     $http({method: 'GET', url: '/buckets/' + $routeParams.bucket + "/props"}).
         success(function(data, status, headers, config) {
             $scope.props = data.props;
@@ -43,4 +44,11 @@ function BucketCtrl($scope, $routeParams, $http) {
         success(function(data, status, headers, config) {
             $scope.keys = data.keys;
         });
+
+    $scope.saveProps = function() {
+        $http({method: 'PUT', url: '/buckets/' + $scope.bucketName + '/props', data: {props: $scope.props} }).
+            success(function(data, status, headers, config) {
+                console.log('status: ' + status);
+            });
+    };
 }

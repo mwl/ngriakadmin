@@ -1,7 +1,7 @@
 <h1>{{bucketName}}</h1>
 <h2>Properties</h2>
 <p>Leave r, w and dw empty for quorum</p>
-<form class="form-horizontal">
+<form class="form-horizontal" ng-submit="saveProps()">
     <div class="control-group">
         <label class="control-label" for="nVal">n:</label>
         <div class="controls">
@@ -54,6 +54,12 @@
                 <input type="checkbox" ng-model="props.notfound_ok">
                 notfound_ok
             </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="Save"/>
+            <button type="reset" class="btn">Reset</button>
         </div>
     </div>
 </form>
