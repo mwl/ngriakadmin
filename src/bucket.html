@@ -1,0 +1,45 @@
+<h1>{{bucketName}}</h1>
+<h2>Properties</h2>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="nVal">n:</label>
+        <div class="controls">
+            <input id="nVal" type="number" ng-model="props.n_val">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="rVal">r:</label>
+        <div class="controls">
+            <!--TODO: quorum checkbox-->
+            <input id="rVal" ng-model="props.r">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="wVal">w:</label>
+
+        <div class="controls">
+            <!--TODO: quorum checkbox-->
+            <input id="wVal" ng-model="props.w">
+            <input id="wQuorum" type="checkbox"/>
+            <label for="wQuorum">Quorum</label>
+        </div>
+    </div>
+</form>
+<h2>Keys</h2>
+<table class="table">
+    <caption>List of keys in bucket</caption>
+    <thead>
+    <tr>
+        <th>Key</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="key in keys">
+        <td>{{key}}</td>
+        <td>
+            <a class="btn btn-danger" href="#"><i class="icon-trash"></i> Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
