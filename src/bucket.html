@@ -77,7 +77,7 @@
     <tr ng-repeat="key in keys">
         <td><a href="#/buckets/{{bucketName}}/keys/{{key}}">{{key}}</a></td>
         <td>
-            <a class="btn btn-danger" href="#"><i class="icon-trash"></i> Delete</a>
+            <a class="btn btn-danger" ng-click="deleteKey(key)"><i class="icon-trash"></i> Delete</a>
         </td>
     </tr>
     </tbody>

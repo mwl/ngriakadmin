@@ -41,10 +41,7 @@ function BucketCtrl($scope, $routeParams, $http) {
             $scope.props = data.props;
         });
 
-    $http({method: 'GET', url: '/buckets/' + $routeParams.bucket + '/keys?keys=true'}).
-        success(function(data, status, headers, config) {
-            $scope.keys = data.keys;
-        });
+    updateBucketKeys($scope.bucketName);
 
     $scope.saveProps = function() {
         $http({method: 'PUT', url: '/buckets/' + $scope.bucketName + '/props', data: {props: $scope.props} }).
@@ -52,6 +49,21 @@ function BucketCtrl($scope, $routeParams, $http) {
                 console.log('status: ' + status);
             });
     };
+
+    $scope.deleteKey = function(key) {
+        //TODO: confirm by user
+        $http({method: 'DELETE', url: '/buckets/' + $scope.bucketName + '/keys/' + key}).
+            success(function (data, status, headers, config) {
+                $scope.keys = _.without($scope.keys, key)
+            });
+    }
+
+    function updateBucketKeys(bucket) {
+        $http({method: 'GET', url: '/buckets/' + bucket + '/keys?keys=true'}).
+            success(function(data, status, headers, config) {
+                $scope.keys = data.keys;
+            });
+    }
 }
 
 function KeyCtrl($scope, $routeParams, $http) {
