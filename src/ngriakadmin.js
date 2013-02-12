@@ -4,6 +4,7 @@ module.config(function ($routeProvider) {
         when('/riak', {controller: RiakCtrl, templateUrl: 'riak.html'}).
         when('/buckets', {controller: BucketsCtrl, templateUrl: 'buckets.html'}).
         when('/buckets/:bucket', {controller: BucketCtrl, templateUrl: 'bucket.html'}).
+        when('/buckets/:bucket/keys/:key', {controller: KeyCtrl, templateUrl: 'key.html'}).
         otherwise({redirectTo: '/riak'});
 });
 module.directive('quorum', function () {
@@ -51,4 +52,14 @@ function BucketCtrl($scope, $routeParams, $http) {
                 console.log('status: ' + status);
             });
     };
+}
+
+function KeyCtrl($scope, $routeParams, $http) {
+    $scope.bucketName = $routeParams.bucket;
+    $scope.keyName = $routeParams.key
+
+    $http({method: 'GET', url: '/buckets/' + $scope.bucketName + '/keys/' + $scope.keyName}).
+        success(function(data, status, headers, config) {
+            $scope.data = data;
+        });
 }
