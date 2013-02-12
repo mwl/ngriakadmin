@@ -1,11 +1,12 @@
 var module = angular.module('riakadmin', []);
 module.config(function ($routeProvider) {
     $routeProvider.
+        when('/', {controller: RiakCtrl, templateUrl: 'home.html'}).
         when('/riak', {controller: RiakCtrl, templateUrl: 'riak.html'}).
         when('/buckets', {controller: BucketsCtrl, templateUrl: 'buckets.html'}).
         when('/buckets/:bucket', {controller: BucketCtrl, templateUrl: 'bucket.html'}).
         when('/buckets/:bucket/keys/:key', {controller: KeyCtrl, templateUrl: 'key.html'}).
-        otherwise({redirectTo: '/riak'});
+        otherwise({redirectTo: '/'});
 });
 module.directive('quorum', function () {
     return {
