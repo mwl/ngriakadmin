@@ -1,7 +1,7 @@
 var module = angular.module('riakadmin', []);
 module.config(function ($routeProvider) {
     $routeProvider.
-        when('/', {controller: RiakCtrl, templateUrl: 'home.html'}).
+        when('/', {controller: HomeCtrl, templateUrl: 'home.html'}).
         when('/riak', {controller: RiakCtrl, templateUrl: 'riak.html'}).
         when('/buckets', {controller: BucketsCtrl, templateUrl: 'buckets.html'}).
         when('/buckets/:bucket', {controller: BucketCtrl, templateUrl: 'bucket.html'}).
@@ -25,7 +25,14 @@ module.directive('quorum', function () {
     }
 });
 
-function RiakCtrl($scope) {
+function HomeCtrl($scope) {
+}
+
+function RiakCtrl($scope, $http) {
+    $http({method: 'GET', url: '/stats'}).
+        success(function (data, status, headers, config) {
+            $scope.stats = data;
+        });
 }
 
 function BucketsCtrl($scope, $http) {
