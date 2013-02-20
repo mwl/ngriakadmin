@@ -11,4 +11,9 @@ install:
 	@curl -XPUT -H "Content-Type: text/html" --data-binary @src/bucket.html $(BUCKET_HOME)/keys/bucket.html
 	@curl -XPUT -H "Content-Type: text/html" --data-binary @src/key.html $(BUCKET_HOME)/keys/key.html
 	@curl -XPUT -H "Content-Type: text/javascript" --data-binary @src/ngriakadmin.js $(BUCKET_HOME)/keys/ngriakadmin.js
+	@curl -XPUT -H "Content-Type: application/json" --data-binary @src/settings.json $(BUCKET_HOME)/keys/settings.json
 	@echo NgRiakAdmin was installed. Open $(BUCKET_HOME_OLD)/index.html
+
+insecure:
+	@curl -XPUT -H "Content-Type: application/json" --data-binary @src/settings_insecure.json $(BUCKET_HOME)/keys/settings.json
+

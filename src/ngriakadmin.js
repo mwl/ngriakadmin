@@ -25,6 +25,21 @@ module.directive('quorum', function () {
         }
     }
 });
+module.factory('production', function($http) {
+    return {
+        check: function(notProductionCallback, isProductionCallback) {
+            $http({method: 'GET', url:'settings.json', cache:'settings'}).
+                success(function(data, status, headers, config) {
+                    if (data.insecure) {
+                        notProductionCallback()
+                    }
+                    else if (isProductionCallback) {
+                        isProductionCallback()
+                    }
+                });
+        }
+    };
+});
 
 function HomeCtrl($scope) {
 }
@@ -36,18 +51,21 @@ function RiakCtrl($scope, $http) {
         });
 }
 
-function SettingsCtrl($scope) {
-
+function SettingsCtrl($scope, production) {
 }
 
-function BucketsCtrl($scope, $http) {
-    $http({method: 'GET', url:'/buckets?buckets=true'}).
-        success(function(data, status, headers, config) {
-            $scope.buckets = data.buckets;
-        });
+function BucketsCtrl($scope, $http, production) {
+    production.check(
+        function() {
+            $http({method: 'GET', url:'/buckets?buckets=true'}).
+                success(function(data, status, headers, config) {
+                    $scope.buckets = data.buckets;
+                });
+        }
+    )
 }
 
-function BucketCtrl($scope, $routeParams, $http) {
+function BucketCtrl($scope, $routeParams, $http, production) {
     $scope.bucketName = $routeParams.bucket
     $http({method: 'GET', url: '/buckets/' + $routeParams.bucket + "/props"}).
         success(function(data, status, headers, config) {
@@ -72,10 +90,14 @@ function BucketCtrl($scope, $routeParams, $http) {
     }
 
     function updateBucketKeys(bucket) {
-        $http({method: 'GET', url: '/buckets/' + bucket + '/keys?keys=true'}).
-            success(function(data, status, headers, config) {
-                $scope.keys = data.keys;
-            });
+        production.check(
+            function() {
+                $http({method: 'GET', url: '/buckets/' + bucket + '/keys?keys=true'}).
+                    success(function(data, status, headers, config) {
+                        $scope.keys = data.keys;
+                    });
+            }
+        );
     }
 }
 
