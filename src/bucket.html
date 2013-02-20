@@ -65,7 +65,7 @@
 </form>
 
 <h2>Keys</h2>
-<table class="table">
+<table class="table" ng-show="keys">
     <caption>List of keys in bucket</caption>
     <thead>
     <tr>
@@ -82,3 +82,14 @@
     </tr>
     </tbody>
 </table>
+
+<div ng-hide="keys">
+    <h3>Open key</h3>
+
+    <form ng-submit="openKey()">
+        <div class="input-append">
+            <input class="span2" type="text" ng-model="gotoKey"/>
+            <input class="btn" type="submit" value="open"/>
+        </div>
+    </form>
+</div>

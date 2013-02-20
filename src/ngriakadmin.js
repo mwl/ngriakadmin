@@ -54,7 +54,7 @@ function RiakCtrl($scope, $http) {
 function SettingsCtrl($scope, production) {
 }
 
-function BucketsCtrl($scope, $http, production) {
+function BucketsCtrl($scope, $http, $location, production) {
     production.check(
         function() {
             $http({method: 'GET', url:'/buckets?buckets=true'}).
@@ -63,9 +63,13 @@ function BucketsCtrl($scope, $http, production) {
                 });
         }
     )
+
+    $scope.openBucket = function() {
+        $location.path('/buckets/' + $scope.gotoBucket)
+    };
 }
 
-function BucketCtrl($scope, $routeParams, $http, production) {
+function BucketCtrl($scope, $routeParams, $http, $location, production) {
     $scope.bucketName = $routeParams.bucket
     $http({method: 'GET', url: '/buckets/' + $routeParams.bucket + "/props"}).
         success(function(data, status, headers, config) {
@@ -99,6 +103,10 @@ function BucketCtrl($scope, $routeParams, $http, production) {
             }
         );
     }
+
+    $scope.openKey = function() {
+        $location.path('/buckets/' + $scope.bucketName + '/keys/' + $scope.gotoKey)
+    };
 }
 
 function KeyCtrl($scope, $routeParams, $http) {
