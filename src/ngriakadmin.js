@@ -3,6 +3,7 @@ module.config(function ($routeProvider) {
     $routeProvider.
         when('/', {controller: HomeCtrl, templateUrl: 'home.html'}).
         when('/riak', {controller: RiakCtrl, templateUrl: 'riak.html'}).
+        when('/settings', {controller: SettingsCtrl, templateUrl: 'settings.html'}).
         when('/buckets', {controller: BucketsCtrl, templateUrl: 'buckets.html'}).
         when('/buckets/:bucket', {controller: BucketCtrl, templateUrl: 'bucket.html'}).
         when('/buckets/:bucket/keys/:key', {controller: KeyCtrl, templateUrl: 'key.html'}).
@@ -33,6 +34,10 @@ function RiakCtrl($scope, $http) {
         success(function (data, status, headers, config) {
             $scope.stats = data;
         });
+}
+
+function SettingsCtrl($scope) {
+
 }
 
 function BucketsCtrl($scope, $http) {
