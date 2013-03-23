@@ -12,8 +12,9 @@
             <input id="timeout" type="number" ng-model="job.timeout"/>
         </div>
     </div>
-    <h2>query</h2>
-    <div>
+
+    <h2>Queries</h2>
+    <div class="well well-small">
         <tabs>
             <pane ng-repeat="phase in job.query" heading="{{$index+1}}: {{getPhaseType(phase)}}">
                 <div class="control-group">
@@ -27,6 +28,11 @@
                     <label class="control-label" for="source{{$index}}">Source:</label>
                     <div class="controls">
                         <textarea id="source{{$index}}" ng-model="getPhase(phase).source" rows="10" style="width: 95%"></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox"><input type="checkbox" ng-model="getPhase(phase).keep"> <span tooltip="Include in final result?">Keep</span></label>
                     </div>
                 </div>
             </pane>
