@@ -1,13 +1,13 @@
 <h1>MapReduce</h1>
-<form ng-submit="performMapReduce()">
+<form ng-submit="performMapReduce()" class="form-horizontal">
     <div class="control-group">
-        <label for="buckets">Buckets:</label>
+        <label class="control-label" for="buckets">Bucket:</label>
         <div class="controls">
             <input id="buckets" type="text" ng-model="job.inputs"/>
         </div>
     </div>
     <div class="control-group">
-        <label for="timeout">Timeout (ms):</label>
+        <label class="control-label" for="timeout">Timeout (ms):</label>
         <div class="controls">
             <input id="timeout" type="number" ng-model="job.timeout"/>
         </div>
@@ -17,16 +17,16 @@
         <tabs>
             <pane ng-repeat="phase in job.query" heading="{{$index+1}}: {{getPhaseType(phase)}}">
                 <div class="control-group">
-                    <label for="language{{$index}}">Language</label>
+                    <label class="control-label" for="language{{$index}}">Language:</label>
                     <div class="controls">
                         <select id="language{{$index}}" ng-model="getPhase(phase).language" ng-options="l for l in ['javascript', 'erlang']">
                         </select>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="source{{$index}}">source</label>
+                    <label class="control-label" for="source{{$index}}">Source:</label>
                     <div class="controls">
-                        <textarea id="source{{$index}}" ng-model="getPhase(phase).source" rows="10" style="width: 90%"></textarea>
+                        <textarea id="source{{$index}}" ng-model="getPhase(phase).source" rows="10" style="width: 95%"></textarea>
                     </div>
                 </div>
             </pane>
