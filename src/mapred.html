@@ -1,9 +1,15 @@
 <h1>MapReduce</h1>
 <form ng-submit="performMapReduce()">
     <div class="control-group">
-        <label for="buckets">Buckets</label>
+        <label for="buckets">Buckets:</label>
         <div class="controls">
             <input id="buckets" type="text" ng-model="job.inputs"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label for="timeout">Timeout (ms):</label>
+        <div class="controls">
+            <input id="timeout" type="number" ng-model="job.timeout"/>
         </div>
     </div>
     <h2>query</h2>
