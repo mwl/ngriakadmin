@@ -1,4 +1,4 @@
-var module = angular.module('riakadmin', []);
+var module = angular.module('riakadmin', ['ui.bootstrap']);
 module.config(function ($routeProvider) {
     $routeProvider.
         when('/', {controller: HomeCtrl, templateUrl: 'home.html'}).
@@ -7,6 +7,8 @@ module.config(function ($routeProvider) {
         when('/buckets', {controller: BucketsCtrl, templateUrl: 'buckets.html'}).
         when('/buckets/:bucket', {controller: BucketCtrl, templateUrl: 'bucket.html'}).
         when('/buckets/:bucket/keys/:key', {controller: KeyCtrl, templateUrl: 'key.html'}).
+        when('/mapred', {controller: MapRedCtrl, templateUrl: 'mapred.html'}).
+        when('/mapred/:job', {controller: MapRedCtrl, templateUrl: 'mapred.html'}).
         otherwise({redirectTo: '/'});
 });
 module.directive('quorum', function () {
@@ -117,4 +119,36 @@ function KeyCtrl($scope, $routeParams, $http) {
         success(function(data, status, headers, config) {
             $scope.data = data;
         });
+}
+
+function MapRedCtrl($scope, $routeParams, $http) {
+    $http({method: 'GET', url: "mapred" + ($routeParams.job ? "_" + $routeParams.job : "") + ".json"}).
+        success(function(data, status, headers, config) {
+            $scope.job = data;
+            $scope.selectedPhase = $scope.getPhase(data.query[0])
+        });
+    $scope.languages = [{name: "erlang"}, {name: "javascript"}];
+
+    $scope.getPhase = function(phase) {
+        if (phase.map) {
+            return phase.map;
+        }
+        else if (phase.reduce) {
+            return phase.reduce;
+        }
+    }
+    $scope.getPhaseType = function(phase) {
+        if (phase.map) {
+            return "Map";
+        }
+        else if (phase.reduce) {
+            return "Reduce";
+        }
+    }
+
+    $scope.performMapReduce = function() {
+        $http({method: 'POST', data: $scope.job, url:'/mapred'}).success(function(data, status, headers, config) {
+            $scope.result = data;
+        })
+    }
 }

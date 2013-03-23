@@ -1,0 +1,17 @@
+{
+    "inputs": "ngriakadmin",
+    "query": [
+        {
+            "map": {
+                "language": "javascript",
+                "source": "function(riakObject) {\n\treturn [riakObject.key]\n}"
+            }
+        },
+        {
+            "reduce": {
+                "language": "javascript",
+                "source": "function(values) {\n\tvar r = []\n\tfor (var i = 0; i < values.length; i++) {\n\t\tvar v = values[i];\n\t\tif (v.match(/mapred.+\\.json/g)) {\n\t\t\tr.push(v);\n\t\t}\n\t}\n\treturn r\n}"
+            }
+        }
+    ]
+}

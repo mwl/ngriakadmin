@@ -21,8 +21,11 @@ clean:
 	@curl -s -XDELETE $(BUCKET_HOME)/keys/buckets.html
 	@curl -s -XDELETE $(BUCKET_HOME)/keys/bucket.html
 	@curl -s -XDELETE $(BUCKET_HOME)/keys/key.html
+	@curl -s -XDELETE $(BUCKET_HOME)/keys/mapred.html
 	@curl -s -XDELETE $(BUCKET_HOME)/keys/ngriakadmin.js
+	@curl -s -XDELETE $(BUCKET_HOME)/keys/ui-bootstrap-tpls-0.2.0.min.js
 	@curl -s -XDELETE $(BUCKET_HOME)/keys/settings.json
+	@curl -s -XDELETE $(BUCKET_HOME)/keys/mapred.json
 
 install: check
 	@curl -s -XPUT -H "Content-Type: text/html" --data-binary @src/index.html $(BUCKET_HOME)/keys/index.html
@@ -32,8 +35,11 @@ install: check
 	@curl -s -XPUT -H "Content-Type: text/html" --data-binary @src/buckets.html $(BUCKET_HOME)/keys/buckets.html
 	@curl -s -XPUT -H "Content-Type: text/html" --data-binary @src/bucket.html $(BUCKET_HOME)/keys/bucket.html
 	@curl -s -XPUT -H "Content-Type: text/html" --data-binary @src/key.html $(BUCKET_HOME)/keys/key.html
+	@curl -s -XPUT -H "Content-Type: text/html" --data-binary @src/mapred.html $(BUCKET_HOME)/keys/mapred.html
 	@curl -s -XPUT -H "Content-Type: text/javascript" --data-binary @src/ngriakadmin.js $(BUCKET_HOME)/keys/ngriakadmin.js
+	@curl -s -XPUT -H "Content-Type: text/javascript" --data-binary @src/ui-bootstrap-tpls-0.2.0.min.js $(BUCKET_HOME)/keys/ui-bootstrap-tpls-0.2.0.min.js
 	@curl -s -XPUT -H "Content-Type: application/json" --data-binary @src/settings.json $(BUCKET_HOME)/keys/settings.json
+	@curl -s -XPUT -H "Content-Type: application/json" --data-binary @src/mapred.json $(BUCKET_HOME)/keys/mapred.json
 	@echo NgRiakAdmin was installed. Open $(BUCKET_HOME_OLD)/index.html
 
 insecure: install

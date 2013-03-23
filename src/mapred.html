@@ -1,0 +1,45 @@
+<h1>MapReduce</h1>
+<form ng-submit="performMapReduce()">
+    <div class="control-group">
+        <label for="buckets">Buckets</label>
+        <div class="controls">
+            <input id="buckets" type="text" ng-model="job.inputs"/>
+        </div>
+    </div>
+    <h2>query</h2>
+    <div>
+        <tabs>
+            <pane ng-repeat="phase in job.query" heading="{{$index+1}}: {{getPhaseType(phase)}}">
+                <div class="control-group">
+                    <label for="language{{$index}}">Language</label>
+                    <div class="controls">
+                        <select id="language{{$index}}" ng-model="getPhase(phase).language" ng-options="l for l in ['javascript', 'erlang']">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="source{{$index}}">source</label>
+                    <div class="controls">
+                        <textarea id="source{{$index}}" ng-model="getPhase(phase).source" rows="10" style="width: 90%"></textarea>
+                    </div>
+                </div>
+            </pane>
+        </tabs>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">Execute</button>
+        </div>
+    </div>
+</form>
+<div modal="result" close="close()">
+    <div class="modal-header">
+        <h4>Map reduce job result</h4>
+    </div>
+    <div class="modal-body">
+        <p>{{result|json}}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="result=''">Close</button>
+    </div>
+</div>
