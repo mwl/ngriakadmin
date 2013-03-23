@@ -1,5 +1,5 @@
 <h1>MapReduce</h1>
-<form ng-submit="performMapReduce()" class="form-horizontal">
+<form class="form-horizontal">
     <div class="control-group">
         <label class="control-label" for="buckets">Bucket:</label>
         <div class="controls">
@@ -40,18 +40,19 @@
     </div>
     <div class="control-group">
         <div class="controls">
-            <button type="submit" class="btn btn-primary">Execute</button>
+            <a ng-click="performMapReduce()" class="btn btn-primary">Execute <i class="icon-play"></i></a>
         </div>
     </div>
 </form>
-<div modal="result" close="close()">
+<div modal="showResultDialog" close="close()" options="{dialogFade: true, backdropFade: true}">
     <div class="modal-header">
-        <h4>Map reduce job result</h4>
+        <h1>Map reduce job result</h1>
     </div>
     <div class="modal-body">
-        <p>{{result|json}}</p>
+        <p ng-hide="result" style="text-align: center"><i class="icon-spinner icon-4x icon-spin"></i></p>
+        <pre ng-show="result">{{result|json}}</pre>
     </div>
     <div class="modal-footer">
-        <button class="btn" ng-click="result=''">Close</button>
+        <button class="btn" ng-click="showResultDialog=false">Close</button>
     </div>
 </div>

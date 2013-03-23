@@ -136,6 +136,9 @@ function MapRedCtrl($scope, $routeParams, $http) {
         else if (phase.reduce) {
             return phase.reduce;
         }
+        else if (phase.link) {
+            return phase.link;
+        }
     }
     $scope.getPhaseType = function(phase) {
         if (phase.map) {
@@ -144,9 +147,14 @@ function MapRedCtrl($scope, $routeParams, $http) {
         else if (phase.reduce) {
             return "Reduce";
         }
+        else if (phase.link) {
+            return "Link";
+        }
     }
 
     $scope.performMapReduce = function() {
+        $scope.showResultDialog = true;
+        $scope.result = '';
         $http({method: 'POST', data: $scope.job, url:'/mapred'}).success(function(data, status, headers, config) {
             $scope.result = data;
         })
