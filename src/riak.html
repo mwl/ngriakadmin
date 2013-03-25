@@ -1,4 +1,4 @@
 <h1>Riak</h1>
-<ul ng-repeat="(key, value) in stats | filter:'version'">
-    <li>{{key}}: {{value}}</li>
+<ul>
+    <li ng-repeat="(key, value) in stats | filter:'version'">{{key}}: {{value}}</li>
 </ul>
