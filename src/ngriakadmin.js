@@ -44,11 +44,36 @@ module.factory('production', function($http) {
 function HomeCtrl($scope) {
 }
 
-function RiakCtrl($scope, $http) {
-    $http({method: 'GET', url: '/stats'}).
-        success(function (data, status, headers, config) {
-            $scope.stats = data;
-        });
+function RiakCtrl($scope, $http, $log) {
+    var timeSeries = [
+        [new Date(new Date().getTime() - (10 * 60000)), null, null]
+    ];
+
+    var g = new Dygraph(
+        document.getElementById("graphdiv"),
+        timeSeries,
+        {labels: ["Time", "node_gets", "node_puts", "d"]}
+
+      );
+
+    fetchStats()
+
+    window.setInterval(function () {
+        var x1 = Math.random() * 10;
+        var x2 = Math.random() * 10;
+        fetchStats()
+        $log.info("New data, " + x1 + ", " + x2);
+    }, 60000);
+
+    function fetchStats() {
+        $http({method: 'GET', url: '/stats'}).
+            success(function (data, status, headers, config) {
+                $scope.stats = data;
+                timeSeries.push([ new Date(), data.node_gets, data.node_puts]);
+                $log.info("Inserted " + data.node_gets + ", " + data.node_puts)
+                g.updateOptions({'file': timeSeries});
+            });
+    }
 }
 
 function SettingsCtrl($scope, production) {
