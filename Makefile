@@ -7,10 +7,10 @@ BUCKET_HOME_OLD=$(RIAK_HOME)/riak/$(BUCKET_NAME)
 
 check:
 ifneq '$(shell curl -s http://localhost:8098/ping)' 'OK'
-	@echo Riak does not responds to ping on $(RIAK_HOME)/ping
+	@echo Riak is not responding to ping on $(RIAK_HOME)/ping
 	@exit 1
 else
-	@echo Riak responds to ping. Good.
+	@echo Riak is responding to pings. Good. Will install NgRiakAdmin on $(RIAK_HOST):$(RIAK_PORT)
 endif
 
 clean:
