@@ -3,7 +3,7 @@ NgRiakAdmin
 
 NgRiakAdmin tries to be to Riak what [phpMyAdmin](http://phpmyadmin.net) is for MySQL. A tool for inspecting your favourite database.
 
-NgRiakAdmin relies on nothing but (obviously) a Riak clustor and full access to the Riak http interface and a browser on the client.
+NgRiakAdmin relies on nothing but (obviously) a Riak cluster and full access to the Riak http interface and a browser on the client.
 
 Installation
 ---
