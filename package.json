@@ -1,0 +1,9 @@
+{
+  "name": "ngriakadmin-dev-server",
+  "description": "Development proxy webserver for snappy turnaround",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.3.8"
+  }
+}
