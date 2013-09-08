@@ -65,17 +65,20 @@
 </form>
 
 <h2>Keys</h2>
+<a href="" ng-click="deleteSelected()" class="btn btn-danger"><i class="icon-trash"></i> Delete selected</a>
 <table class="table" ng-show="keys">
     <caption>List of keys in bucket</caption>
     <thead>
     <tr>
+        <th><input type="checkbox" disabled/></th>
         <th>Key</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="key in keys">
-        <td><a href="#/buckets/{{bucketName}}/keys/{{key}}">{{key}}</a></td>
+        <td><input type="checkbox" ng-model="key.selected"/></td>
+        <td><a href="#/buckets/{{bucketName}}/keys/{{key.key}}" ng-bind="key.key"></a></td>
         <td>
             <a class="btn btn-danger" ng-click="deleteKey(key)"><i class="icon-trash"></i> Delete</a>
         </td>

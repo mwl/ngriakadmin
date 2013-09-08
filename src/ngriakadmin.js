@@ -69,7 +69,7 @@ function BucketsCtrl($scope, $http, $location, production) {
     };
 }
 
-function BucketCtrl($scope, $routeParams, $http, $location, production) {
+function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
     $scope.bucketName = $routeParams.bucket
     $http({method: 'GET', url: '/buckets/' + $routeParams.bucket + "/props"}).
         success(function(data, status, headers, config) {
@@ -87,18 +87,22 @@ function BucketCtrl($scope, $routeParams, $http, $location, production) {
 
     $scope.deleteKey = function(key) {
         //TODO: confirm by user
-        $http({method: 'DELETE', url: '/buckets/' + $scope.bucketName + '/keys/' + key}).
+        $http({method: 'DELETE', url: '/buckets/' + $scope.bucketName + '/keys/' + key.key}).
             success(function (data, status, headers, config) {
                 $scope.keys = _.without($scope.keys, key)
             });
     }
+
+    $scope.deleteSelected = function() {
+        _.chain($scope.keys).filter(function (key) { return key.selected }).each($scope.deleteKey);
+    };
 
     function updateBucketKeys(bucket) {
         production.check(
             function() {
                 $http({method: 'GET', url: '/buckets/' + bucket + '/keys?keys=true'}).
                     success(function(data, status, headers, config) {
-                        $scope.keys = data.keys;
+                        $scope.keys = _(data.keys).map(function(key) { return {key: key}; });
                     });
             }
         );
