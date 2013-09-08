@@ -70,7 +70,7 @@
     <caption>List of keys in bucket</caption>
     <thead>
     <tr>
-        <th><input type="checkbox" disabled/></th>
+        <th><input ng-model="allSelected" type="checkbox" ng-change="selectAll()"/></th>
         <th>Key</th>
         <th></th>
     </tr>

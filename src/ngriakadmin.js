@@ -97,6 +97,10 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
         _.chain($scope.keys).filter(function (key) { return key.selected }).each($scope.deleteKey);
     };
 
+    $scope.selectAll = function() {
+        _.each($scope.keys, function(key) { key.selected = $scope.allSelected})
+    }
+
     function updateBucketKeys(bucket) {
         production.check(
             function() {
