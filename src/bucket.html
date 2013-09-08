@@ -78,7 +78,7 @@
     <tbody>
     <tr ng-repeat="key in keys">
         <td><input type="checkbox" ng-model="key.selected"/></td>
-        <td><a href="#/buckets/{{bucketName}}/keys/{{key.key}}" ng-bind="key.key"></a></td>
+        <td><a href="" ng-click="openKey(bucketName, key.key)" ng-bind="key.key"></a></td>
         <td>
             <a class="btn btn-danger" ng-click="deleteKey(key)"><i class="icon-trash"></i> Delete</a>
         </td>
@@ -89,7 +89,7 @@
 <div ng-hide="keys">
     <h3>Open key</h3>
 
-    <form ng-submit="openKey()">
+    <form ng-submit="openKey(bucketName, gotoKey)">
         <div class="input-append">
             <input class="span2" type="text" ng-model="gotoKey"/>
             <input class="btn" type="submit" value="open"/>

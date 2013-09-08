@@ -1,13 +1,13 @@
 <h1>Riak overview</h1>
 
 <ul ng-repeat="bucket in buckets" class="unstyled" ng-show="buckets">
-    <li><a href="#/buckets/{{bucket}}">{{bucket}}</a></li>
+    <li><a href="" ng-click="openBucket(bucket)">{{bucket}}</a></li>
 </ul>
 
 <div ng-hide="buckets">
     <h2>Open bucket</h2>
 
-    <form ng-submit="openBucket()">
+    <form ng-submit="openBucket(gotoBucket)">
         <div class="input-append">
             <input class="span2" type="text" ng-model="gotoBucket"/>
             <input class="btn" type="submit" value="open"/>

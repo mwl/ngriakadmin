@@ -64,13 +64,13 @@ function BucketsCtrl($scope, $http, $location, production) {
         }
     )
 
-    $scope.openBucket = function() {
-        $location.path('/buckets/' + $scope.gotoBucket)
+    $scope.openBucket = function(bucket) {
+        $location.path('/buckets/' + encodeURIComponent(bucket));
     };
 }
 
 function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
-    $scope.bucketName = $routeParams.bucket
+    $scope.bucketName = decodeURIComponent($routeParams.bucket);
     $http({method: 'GET', url: '/buckets/' + $routeParams.bucket + "/props"}).
         success(function(data, status, headers, config) {
             $scope.props = data.props;
@@ -79,7 +79,7 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
     updateBucketKeys($scope.bucketName);
 
     $scope.saveProps = function() {
-        $http({method: 'PUT', url: '/buckets/' + $scope.bucketName + '/props', data: {props: $scope.props} }).
+        $http({method: 'PUT', url: '/buckets/' + encodeURIComponent($scope.bucketName) + '/props', data: {props: $scope.props} }).
             success(function(data, status, headers, config) {
                 console.log('status: ' + status);
             });
@@ -113,7 +113,7 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
     function updateBucketKeys(bucket) {
         production.check(
             function() {
-                $http({method: 'GET', url: '/buckets/' + bucket + '/keys?keys=true'}).
+                $http({method: 'GET', url: '/buckets/' + encodeURIComponent(bucket) + '/keys?keys=true'}).
                     success(function(data, status, headers, config) {
                         $scope.keys = _(data.keys).map(function(key) { return {key: key}; });
                     });
@@ -121,16 +121,16 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
         );
     }
 
-    $scope.openKey = function() {
-        $location.path('/buckets/' + $scope.bucketName + '/keys/' + $scope.gotoKey)
+    $scope.openKey = function(bucket, key) {
+        $location.path('/buckets/' + encodeURIComponent(bucket) + '/keys/' + encodeURIComponent(key))
     };
 }
 
 function KeyCtrl($scope, $routeParams, $http) {
-    $scope.bucketName = $routeParams.bucket;
-    $scope.keyName = $routeParams.key
+    $scope.bucketName = decodeURIComponent($routeParams.bucket);
+    $scope.keyName = decodeURIComponent($routeParams.key)
 
-    $http({method: 'GET', url: '/buckets/' + $scope.bucketName + '/keys/' + $scope.keyName}).
+    $http({method: 'GET', url: '/buckets/' + encodeURIComponent($scope.bucketName) + '/keys/' + encodeURIComponent($scope.keyName)}).
         success(function(data, status, headers, config) {
             $scope.data = data;
         });
