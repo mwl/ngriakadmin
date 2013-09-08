@@ -101,6 +101,15 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
         _.each($scope.keys, function(key) { key.selected = $scope.allSelected})
     }
 
+    $scope.$watch(
+        function(scope) {
+            return _.chain(scope.keys).map(function(key) { return key.selected}).every().value()
+        },
+        function(allIsSelected, oldValue, scope) {
+            scope.allSelected = allIsSelected
+        }
+    )
+
     function updateBucketKeys(bucket) {
         production.check(
             function() {
