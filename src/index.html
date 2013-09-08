@@ -4,7 +4,7 @@
     <title></title>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     <script src="ngriakadmin.js"></script>
@@ -15,22 +15,20 @@
     </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" ng-href="#/">ngRiakAdmin</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a ng-href="#/riak">Riak</a></li>
-                        <li><a ng-href="#/buckets">Buckets</a></li>
-                    </ul>
-                </div>
-                <div class="navbar-collapse pull-right">
-                    <ul class="nav">
-                        <li><a href="#/settings"><i class="icon-cog"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <!-- TODO: responsive -->
+            <a class="navbar-brand" ng-href="#/">ngRiakAdmin</a>
+        </div>
+        <div class="collabse navbar-collable navbar-ex1-collable">
+            <ul class="nav navbar-nav">
+                <li><a ng-href="#/riak">Riak</a></li>
+                <li><a ng-href="#/buckets">Buckets</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/settings"><i class="icon-cog"></i></a></li>
+            </ul>
+
         </div>
     </div>
 

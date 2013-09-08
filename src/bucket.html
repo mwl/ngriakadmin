@@ -1,62 +1,65 @@
 <h1>{{bucketName}}</h1>
 <h2>Properties</h2>
 <p>Leave r, w and dw empty for quorum</p>
-<form class="form-horizontal" ng-submit="saveProps()">
-    <div class="control-group">
-        <label class="control-label" for="nVal">n:</label>
-        <div class="controls">
-            <input id="nVal" type="number" ng-model="props.n_val" min="0" quorum>
+<form role="form" class="form-horizontal" ng-submit="saveProps()">
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="nVal">n</label>
+        <div class="col-lg-2">
+            <input id="nVal" class="form-control" type="number" ng-model="props.n_val" min="0" quorum>
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="rVal">r:</label>
-        <div class="controls">
-            <input id="rVal" type="number" ng-model="props.r" placeholder="quorum" min="1" quorum>
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="rVal">r</label>
+        <div class="col-lg-2">
+            <input id="rVal" class="form-control" type="number" ng-model="props.r" placeholder="quorum" min="1" quorum>
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="wVal">w:</label>
-        <div class="controls">
-            <input id="wVal" type="number" ng-model="props.w" placeholder="quorum" min="1" quorum>
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="wVal">w</label>
+        <div class="col-lg-2">
+            <input id="wVal" class="form-control" type="number" ng-model="props.w" placeholder="quorum" min="1" quorum>
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="dwVal">dw:</label>
-        <div class="controls">
-            <input id="dwVal" type="number" ng-model="props.dw" placeholder="quorum" min="1" quorum>
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="dwVal">dw</label>
+        <div class="col-lg-2">
+            <input id="dwVal" class="form-control" type="number" ng-model="props.dw" placeholder="quorum" min="1" quorum>
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="prVal">pr:</label>
-        <div class="controls">
-            <input id="prVal" type="number" ng-model="props.pr" min="0">
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="prVal">pr</label>
+        <div class="col-lg-2">
+            <input id="prVal" class="form-control" type="number" ng-model="props.pr" min="0">
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" for="pwVal">pw:</label>
-        <div class="controls">
-            <input id="pwVal" type="number" ng-model="props.pw" min="0">
+    <div class="form-group">
+        <label class="col-lg-2 control-label" for="pwVal">pw</label>
+        <div class="col-lg-2">
+            <input id="pwVal" class="form-control" type="number" ng-model="props.pw" min="0">
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label">Bucket options</label>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Bucket options</label>
 
-        <div class="controls">
-            <label>
-                <input type="checkbox" ng-model="props.allow_mult">
-                Allow_mult
-            </label>
-            <label>
-                <input type="checkbox" ng-model="props.basic_quorum">
-                basic_quorum
-            </label>
-            <label>
-                <input type="checkbox" ng-model="props.notfound_ok">
-                notfound_ok
-            </label>
+        <div class="col-lg-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="props.allow_mult"> Allow_mult
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="props.basic_quorum"> basic_quorum
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="props.notfound_ok"> notfound_ok
+                </label>
+            </div>
         </div>
     </div>
-    <div class="control-group">
+    <div class="form-group">
         <div class="form-actions">
             <input type="submit" class="btn btn-primary" value="Save"/>
             <button type="reset" class="btn">Reset</button>
@@ -65,34 +68,36 @@
 </form>
 
 <h2>Keys</h2>
-<a href="" ng-click="deleteSelected()" class="btn btn-danger"><i class="icon-trash"></i> Delete selected</a>
-<table class="table" ng-show="keys">
-    <caption>List of keys in bucket</caption>
-    <thead>
-    <tr>
-        <th><input ng-model="allSelected" type="checkbox" ng-change="selectAll()"/></th>
-        <th>Key</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="key in keys">
-        <td><input type="checkbox" ng-model="key.selected"/></td>
-        <td><a href="" ng-click="openKey(bucketName, key.key)" ng-bind="key.key"></a></td>
-        <td>
-            <a class="btn btn-danger" ng-click="deleteKey(key)"><i class="icon-trash"></i> Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div ng-show="keys">
+    <a href="" ng-click="deleteSelected()" class="btn btn-danger"><i class="icon-trash"></i> Delete selected</a>
+    <table class="table" ng-show="keys">
+        <caption>List of keys in bucket</caption>
+        <thead>
+        <tr>
+            <th><input ng-model="allSelected" type="checkbox" ng-change="selectAll()"/></th>
+            <th>Key</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="key in keys">
+            <td><input type="checkbox" ng-model="key.selected"/></td>
+            <td><a href="" ng-click="openKey(bucketName, key.key)" ng-bind="key.key"></a></td>
+            <td>
+                <a class="btn btn-danger" ng-click="deleteKey(key)"><i class="icon-trash"></i> Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <div ng-hide="keys">
     <h3>Open key</h3>
 
-    <form ng-submit="openKey(bucketName, gotoKey)">
-        <div class="input-append">
-            <input class="span2" type="text" ng-model="gotoKey"/>
-            <input class="btn" type="submit" value="open"/>
+    <form class="form-inline" role="form" ng-submit="openKey(bucketName, gotoKey)">
+        <div class="form-group">
+            <input class="form-control" class="span2" type="text" ng-model="gotoKey" placeholder="key"/>
         </div>
+        <button class="btn btn-default" type="submit">Open</button>
     </form>
 </div>
