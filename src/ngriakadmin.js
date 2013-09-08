@@ -87,7 +87,7 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
 
     $scope.deleteKey = function(key) {
         //TODO: confirm by user
-        $http({method: 'DELETE', url: '/buckets/' + $scope.bucketName + '/keys/' + key.key}).
+        $http({method: 'DELETE', url: '/buckets/' + encodeURIComponent($scope.bucketName) + '/keys/' + encodeURIComponent(key.key)}).
             success(function (data, status, headers, config) {
                 $scope.keys = _.without($scope.keys, key)
             });
