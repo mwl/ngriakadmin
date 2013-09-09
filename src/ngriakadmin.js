@@ -1,4 +1,4 @@
-var module = angular.module('riakadmin', []);
+var module = angular.module('riakadmin', ['restangular']);
 module.config(function ($routeProvider) {
     $routeProvider.
         when('/', {controller: HomeCtrl, templateUrl: 'home.html'}).
@@ -126,12 +126,14 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
     };
 }
 
-function KeyCtrl($scope, $routeParams, $http) {
+function KeyCtrl($scope, $routeParams, $http, Restangular) {
     $scope.bucketName = decodeURIComponent($routeParams.bucket);
     $scope.keyName = decodeURIComponent($routeParams.key)
+    var Key = Restangular.one('buckets', encodeURIComponent($scope.bucketName)).one('keys', encodeURIComponent($scope.keyName));
 
-    $http({method: 'GET', url: '/buckets/' + encodeURIComponent($scope.bucketName) + '/keys/' + encodeURIComponent($scope.keyName)}).
-        success(function(data, status, headers, config) {
+    Key.get().then(
+        function(data, status, headers, config) {
             $scope.data = data;
-        });
+        }
+    )
 }
