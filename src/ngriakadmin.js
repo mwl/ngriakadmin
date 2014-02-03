@@ -9,6 +9,11 @@ module.config(function ($routeProvider) {
         when('/buckets/:bucket/keys/:key', {controller: KeyCtrl, templateUrl: 'key.html'}).
         otherwise({redirectTo: '/'});
 });
+
+module.config(function (RestangularProvider) {
+    RestangularProvider.setFullResponse(true)
+});
+
 module.directive('quorum', function () {
     return {
         restrict: 'A',
@@ -126,14 +131,28 @@ function BucketCtrl($scope, $routeParams, $http, $location, production, $log) {
     };
 }
 
-function KeyCtrl($scope, $routeParams, $http, Restangular) {
+function KeyCtrl($scope, $routeParams, Restangular) {
     $scope.bucketName = decodeURIComponent($routeParams.bucket);
     $scope.keyName = decodeURIComponent($routeParams.key)
     var Key = Restangular.one('buckets', encodeURIComponent($scope.bucketName)).one('keys', encodeURIComponent($scope.keyName));
 
-    Key.get().then(
-        function(data, status, headers, config) {
-            $scope.data = data;
+    $scope.object = {}
+
+    Key.head().then(
+        function(response) {
+            var contentType = response.headers()['content-type'];
+            $scope.object.contentType = contentType
+            if (_.contains(['application/x-www-form-urlencoded', 'application/json', 'text/html', 'text/javascript'], contentType)) {
+                Key.get().then(function(response) {
+                    $scope.object.data = response.data;
+                });
+            }
         }
     )
+
+    $scope.save = function() {
+        //$scope.key.put({}, {'content-type': $scope.contentType});
+        alert(angular.toJson($scope.key))
+        $scope.key.data.put();
+    }
 }

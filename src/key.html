@@ -1,9 +1,16 @@
 <h1>{{bucketName}}/{{keyName}}</h1>
-<form role="form" class="form-horizontal">
+<form role="form" class="form-horizontal" ng-submit="save()">
     <div class="form-group">
-        <labal for="data" class="col-lg-2 control-label">Data</labal>
+        <label for="contentType" class="col-lg-2 control-label">Content type</label>
         <div class="col-lg-10">
-            <textarea id="data" class="col-lg-12" rows="10" ng-model="data"></textarea>
+            <input id="contentType" type="text" ng-model="object.contentType"/>
         </div>
     </div>
+    <div class="form-group">
+        <label for="data" class="col-lg-2 control-label">Data</label>
+        <div class="col-lg-10">
+            <textarea id="data" class="col-lg-12" rows="10" ng-model="object.data"></textarea>
+        </div>
+    </div>
+    <button class="btn btn-default" type="submit">save</button>
 </form>
