@@ -1,9 +1,15 @@
 <h1>{{bucketName}}/{{keyName}}</h1>
 <form role="form" class="form-horizontal">
     <div class="form-group">
+        <labal for="data" class="col-lg-2 control-label">Content-type</labal>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" ng-model="contentType" />
+        </div>
+    </div>
+    <div class="form-group">
         <labal for="data" class="col-lg-2 control-label">Data</labal>
         <div class="col-lg-10">
-            <textarea id="data" class="form-control" rows="10" ng-model="data"></textarea>
+            <div hljs source="data"></div>
         </div>
     </div>
 </form>
