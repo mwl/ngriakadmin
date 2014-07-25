@@ -1,5 +1,5 @@
-var module = angular.module('riakadmin', []);
-module.config(function ($routeProvider) {
+var module = angular.module('riakadmin', ['hljs']);
+module.config(function ($routeProvider, hljsServiceProvider) {
     $routeProvider.
         when('/', {controller: HomeCtrl, templateUrl: 'home.html'}).
         when('/riak', {controller: RiakCtrl, templateUrl: 'riak.html'}).
@@ -8,6 +8,11 @@ module.config(function ($routeProvider) {
         when('/buckets/:bucket', {controller: BucketCtrl, templateUrl: 'bucket.html'}).
         when('/buckets/:bucket/keys/:key', {controller: KeyCtrl, templateUrl: 'key.html'}).
         otherwise({redirectTo: '/'});
+
+    hljsServiceProvider.setOptions({
+        // replace tab with 4 spaces
+        tabReplace: '    '
+    });
 });
 module.directive('quorum', function () {
     return {
@@ -130,8 +135,10 @@ function KeyCtrl($scope, $routeParams, $http) {
     $scope.bucketName = decodeURIComponent($routeParams.bucket);
     $scope.keyName = decodeURIComponent($routeParams.key)
 
-    $http({method: 'GET', url: '/buckets/' + encodeURIComponent($scope.bucketName) + '/keys/' + encodeURIComponent($scope.keyName)}).
+    $http({method: 'GET', url: '/buckets/' + encodeURIComponent($scope.bucketName) + '/keys/' + encodeURIComponent($scope.keyName), transformResponse: [] }).
         success(function(data, status, headers, config) {
+            console.log("Received data: ", data);
             $scope.data = data;
+            $scope.contentType = headers('Content-Type');
         });
 }
